@@ -1,0 +1,115 @@
+<div class="min-h-screen bg-gray-50" dir="rtl">
+  <!-- Header -->
+  <div class="bg-white shadow-sm border-b border-gray-200 p-6">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900">لوحة تحكم الإدارة</h1>
+        <p class="text-gray-600 mt-2">إدارة شاملة للطلبات والخدمات والمسوقين</p>
+      </div>
+      <a routerLink="/" class="px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition font-medium">
+        العودة للرئيسية
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto p-6">
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+      <div *ngFor="let card of summaryCards" [ngClass]="card.color" class="rounded-lg p-6 shadow-sm hover:shadow-md transition">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-600 text-sm font-medium">{{ card.label }}</p>
+            <p class="text-2xl font-bold text-gray-900 mt-2">{{ card.value }}</p>
+          </div>
+          <div class="text-3xl opacity-50">{{ card.icon }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Orders Section -->
+    <div class="bg-white rounded-lg shadow-sm mb-8 overflow-hidden">
+      <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+        <h2 class="text-xl font-bold text-gray-900">الطلبات الأخيرة</h2>
+        <button class="px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition font-medium text-sm">
+          عرض الكل
+        </button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th class="px-6 py-4 text-right text-sm font-semibold text-gray-900">رقم الطلب</th>
+              <th class="px-6 py-4 text-right text-sm font-semibold text-gray-900">اسم العميل</th>
+              <th class="px-6 py-4 text-right text-sm font-semibold text-gray-900">اسم الخدمة</th>
+              <th class="px-6 py-4 text-right text-sm font-semibold text-gray-900">حالة الطلب</th>
+              <th class="px-6 py-4 text-right text-sm font-semibold text-gray-900">تاريخ الطلب</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of recentOrders" class="border-b border-gray-200 hover:bg-gray-50 transition">
+              <td class="px-6 py-4 text-sm font-medium text-teal-600">{{ order.id }}</td>
+              <td class="px-6 py-4 text-sm text-gray-900">{{ order.user }}</td>
+              <td class="px-6 py-4 text-sm text-gray-900">{{ order.service }}</td>
+              <td class="px-6 py-4 text-sm">
+                <span [ngClass]="getStatusClass(order.statusType)" class="px-3 py-1 rounded-full text-xs font-medium">
+                  {{ order.status }}
+                </span>
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-600">{{ order.date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Marketers Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-gray-200">
+          <h2 class="text-xl font-bold text-gray-900">أفضل المسوقين</h2>
+        </div>
+        <div class="divide-y divide-gray-200">
+          <div *ngFor="let marketer of marketers" class="p-6 hover:bg-gray-50 transition">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900">{{ marketer.name }}</h3>
+                <p class="text-sm text-gray-600 mt-1">الكود: {{ marketer.code }}</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mt-4">
+              <div class="bg-blue-50 p-3 rounded-lg">
+                <p class="text-gray-600 text-xs">عدد المبيعات</p>
+                <p class="text-2xl font-bold text-blue-600 mt-1">{{ marketer.sales }}</p>
+              </div>
+              <div class="bg-green-50 p-3 rounded-lg">
+                <p class="text-gray-600 text-xs">الأرباح</p>
+                <p class="text-lg font-bold text-green-600 mt-1">{{ marketer.profit }}</p>
+              </div>
+            </div>
+            <p class="text-xs text-gray-500 mt-3">آخر تحديث: {{ marketer.lastDate }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- System Activity Section -->
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-gray-200">
+          <h2 class="text-xl font-bold text-gray-900">نشاط النظام</h2>
+        </div>
+        <div class="divide-y divide-gray-200">
+          <div *ngFor="let activity of systemActivity" class="p-6 hover:bg-gray-50 transition">
+            <div class="flex items-start gap-4">
+              <div class="text-3xl flex-shrink-0">{{ activity.icon }}</div>
+              <div class="flex-1">
+                <h3 class="font-semibold text-gray-900">{{ activity.action }}</h3>
+                <p class="text-gray-600 text-sm mt-1">{{ activity.description }}</p>
+                <p class="text-xs text-gray-500 mt-2">{{ activity.time }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
