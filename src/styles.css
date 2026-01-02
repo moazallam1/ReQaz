@@ -13,3 +13,32 @@ body {
   margin: 0;
 }
 
+::selection {
+  background-color: teal;
+  color: #ffffff;
+}
+
+/* عرض الـ scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* الخلفية */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* الجزء اللي بيتحرك */
+::-webkit-scrollbar-thumb {
+  background: teal;
+  border-radius: 10px;
+}
+
+/* hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 128, 128, 0.668);
+}
+
+html {
+  scroll-behavior: smooth;
+}
