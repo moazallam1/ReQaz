@@ -1,0 +1,62 @@
+<div class="min-h-screen bg-gray-50 pt-20" dir="rtl">
+  <!-- Header -->
+  <div class="bg-white shadow-sm border-b border-gray-200 p-6">
+    <div class="max-w-7xl mx-auto">
+      <h1 class="text-3xl font-bold text-gray-900">طلباتي</h1>
+      <p class="text-gray-600 mt-2">عرض وإدارة جميع طلباتك</p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="max-w-7xl mx-auto p-6">
+    <!-- Filters -->
+    <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <label class="block text-sm font-medium text-gray-900 mb-2">فلترة حسب الحالة</label>
+      <select [(ngModel)]="statusFilter" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none">
+        <option value="all">الكل</option>
+        <option value="pending">قيد الانتظار</option>
+        <option value="processing">قيد المعالجة</option>
+        <option value="completed">مكتملة</option>
+        <option value="cancelled">ملغاة</option>
+      </select>
+    </div>
+
+    <!-- Orders Table -->
+    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th class="px-6 py-4 text-right text-sm font-semibold text-gray-900">رقم الطلب</th>
+              <th class="px-6 py-4 text-right text-sm font-semibold text-gray-900">اسم الخدمة</th>
+              <th class="px-6 py-4 text-right text-sm font-semibold text-gray-900">السعر</th>
+              <th class="px-6 py-4 text-right text-sm font-semibold text-gray-900">الحالة</th>
+              <th class="px-6 py-4 text-right text-sm font-semibold text-gray-900">التاريخ</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if (filteredOrders.length === 0) {
+              <tr>
+                <td [attr.colspan]="5" class="px-6 py-8">
+                  <app-empty-state icon="📦" title="لا توجد طلبات" message="لم تقم بأي طلب حتى الآن"></app-empty-state>
+                </td>
+              </tr>
+            }
+
+            @for (order of filteredOrders; track order.id) {
+              <tr class="border-b border-gray-200 hover:bg-gray-50 transition">
+                <td class="px-6 py-4 text-sm font-medium text-teal-600">{{ order.id }}</td>
+                <td class="px-6 py-4 text-sm text-gray-900">{{ order.serviceName }}</td>
+                <td class="px-6 py-4 text-sm text-gray-900">{{ order.price }} ر.س</td>
+                <td class="px-6 py-4 text-sm">
+                  <app-badge [text]="getStatusLabel(order.status)" [type]="getStatusBadgeType(order.status)"></app-badge>
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-600">{{ order.createdAt }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

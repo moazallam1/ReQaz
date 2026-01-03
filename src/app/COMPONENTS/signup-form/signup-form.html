@@ -1,62 +1,115 @@
-<div class="min-h-screen bg-gray-50 flex items-center justify-center pt-20 pb-12">
-  <div class="w-full max-w-md">
-    <div class="bg-white rounded-2xl shadow-md p-8">
-      <!-- Header -->
-      <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">إنشاء حساب</h1>
-        <p class="text-gray-600">انضم إلى ركاز اليوم</p>
-      </div>
-
-      <!-- Form -->
-      <form class="space-y-4">
-        <!-- Full Name -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">الاسم الكامل</label>
-          <input type="text" placeholder="أدخل اسمك الكامل" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition">
-        </div>
-
-        <!-- Email -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">البريد الإلكتروني</label>
-          <input type="email" placeholder="example@email.com" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition">
-        </div>
-
-        <!-- Password -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">كلمة المرور</label>
-          <input type="password" placeholder="أدخل كلمة مرور قوية" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition">
-        </div>
-
-        <!-- Confirm Password -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">تأكيد كلمة المرور</label>
-          <input type="password" placeholder="أعد إدخال كلمة المرور" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition">
-        </div>
-
-        <!-- Terms Agreement -->
-        <div class="flex items-start gap-3 pt-2">
-          <input type="checkbox" class="accent-teal-600 mt-1">
-          <label class="text-sm text-gray-600">
-            أوافق على 
-            <a href="#" class="text-teal-600 hover:underline">شروط الخدمة</a>
-            و
-            <a href="#" class="text-teal-600 hover:underline">سياسة الخصوصية</a>
-          </label>
-        </div>
-
-        <!-- Submit Button -->
-        <button type="submit" class="w-full px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition font-bold mt-6">
-          إنشاء الحساب
-        </button>
-      </form>
-
-      <!-- Login Link -->
-      <div class="text-center mt-6">
-        <p class="text-gray-600">
-          لديك حساب بالفعل؟
-          <a routerLink="/login" class="text-teal-600 hover:underline font-medium">دخول</a>
-        </p>
-      </div>
+<div class="min-h-screen bg-gradient-to-l from-teal-50 to-white flex items-center justify-center py-12 px-6" dir="rtl">
+  <div class="max-w-md w-full bg-white rounded-2xl shadow-lg p-8">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">ركاز</h1>
+      <p class="text-gray-600">إنشاء حساب جديد</p>
     </div>
+
+    <!-- Form -->
+    <form (ngSubmit)="onSubmit()" class="space-y-5">
+      <!-- Full Name -->
+      <div>
+        <label class="block text-sm font-medium text-gray-900 mb-2">الاسم الكامل</label>
+        <input
+          [(ngModel)]="fullName"
+          name="fullName"
+          type="text"
+          placeholder="أحمد محمد"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition"
+          required
+        />
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block text-sm font-medium text-gray-900 mb-2">البريد الإلكتروني</label>
+        <input
+          [(ngModel)]="email"
+          name="email"
+          type="email"
+          placeholder="your@email.com"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition"
+          required
+        />
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label class="block text-sm font-medium text-gray-900 mb-2">كلمة المرور</label>
+        <div class="relative">
+          <input
+            [(ngModel)]="password"
+            name="password"
+            [type]="showPassword() ? 'text' : 'password'"
+            placeholder="••••••••"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition"
+            required
+          />
+          <button
+            type="button"
+            (click)="showPassword.set(!showPassword())"
+            class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 hover:text-teal-600 transition"
+          >
+            {{ showPassword() ? '🙈' : '👁️' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <div>
+        <label class="block text-sm font-medium text-gray-900 mb-2">تأكيد كلمة المرور</label>
+        <div class="relative">
+          <input
+            [(ngModel)]="confirmPassword"
+            name="confirmPassword"
+            [type]="showConfirmPassword() ? 'text' : 'password'"
+            placeholder="••••••••"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition"
+            required
+          />
+          <button
+            type="button"
+            (click)="showConfirmPassword.set(!showConfirmPassword())"
+            class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 hover:text-teal-600 transition"
+          >
+            {{ showConfirmPassword() ? '🙈' : '👁️' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Terms -->
+      <label class="flex items-start gap-2">
+        <input
+          [(ngModel)]="agreeToTerms"
+          name="agreeToTerms"
+          type="checkbox"
+          class="w-4 h-4 border-gray-300 rounded text-teal-600 cursor-pointer mt-1"
+          required
+        />
+        <span class="text-sm text-gray-700">
+          أوافق على
+          <a href="#" class="text-teal-600 hover:text-teal-700 transition font-medium">شروط الاستخدام</a>
+          و
+          <a href="#" class="text-teal-600 hover:text-teal-700 transition font-medium">سياسة الخصوصية</a>
+        </span>
+      </label>
+
+      <!-- Submit -->
+      <button
+        type="submit"
+        class="w-full px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition font-bold mt-6"
+      >
+        إنشاء حساب
+      </button>
+    </form>
+
+    <!-- Sign In Link -->
+    <p class="text-center text-gray-600 mt-6">
+      هل لديك حساب بالفعل؟
+      <a routerLink="/login" class="text-teal-600 hover:text-teal-700 transition font-bold">
+        دخول
+      </a>
+    </p>
   </div>
 </div>

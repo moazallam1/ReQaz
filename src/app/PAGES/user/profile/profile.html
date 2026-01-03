@@ -1,0 +1,88 @@
+<div class="min-h-screen bg-gray-50 pt-20" dir="rtl">
+  <!-- Header -->
+  <div class="bg-white shadow-sm border-b border-gray-200 p-6">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-3xl font-bold text-gray-900">الملف الشخصي</h1>
+      <p class="text-gray-600 mt-2">إدارة بيانات حسابك الشخصية</p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="max-w-4xl mx-auto p-6">
+    <!-- Profile Card -->
+    <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">معلومات الحساب</h2>
+
+      <form (ngSubmit)="onSaveProfile()" class="space-y-6">
+        <!-- Name -->
+        <div>
+          <label class="block text-sm font-medium text-gray-900 mb-2">الاسم الكامل</label>
+          <input [(ngModel)]="formData.name" name="name" type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none transition" required />
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label class="block text-sm font-medium text-gray-900 mb-2">البريد الإلكتروني</label>
+          <input [(ngModel)]="formData.email" name="email" type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none transition" required />
+        </div>
+
+        <!-- Phone -->
+        <div>
+          <label class="block text-sm font-medium text-gray-900 mb-2">رقم الهاتف</label>
+          <input [(ngModel)]="formData.phone" name="phone" type="tel" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none transition" />
+        </div>
+
+        <!-- Bio -->
+        <div>
+          <label class="block text-sm font-medium text-gray-900 mb-2">السيرة الذاتية</label>
+          <textarea [(ngModel)]="formData.bio" name="bio" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none transition resize-none"></textarea>
+        </div>
+
+        <!-- Submit -->
+        <div class="flex gap-4">
+          <button type="submit" class="px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition font-bold">
+            حفظ التغييرات
+          </button>
+          <button type="reset" class="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition font-medium">
+            إلغاء
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Change Password Card -->
+    <div class="bg-white rounded-lg shadow-sm p-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">تغيير كلمة المرور</h2>
+
+      <form (ngSubmit)="onChangePassword()" class="space-y-6">
+        <!-- Old Password -->
+        <div>
+          <label class="block text-sm font-medium text-gray-900 mb-2">كلمة المرور الحالية</label>
+          <input [(ngModel)]="passwordData.oldPassword" name="oldPassword" type="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none transition" required />
+        </div>
+
+        <!-- New Password -->
+        <div>
+          <label class="block text-sm font-medium text-gray-900 mb-2">كلمة المرور الجديدة</label>
+          <input [(ngModel)]="passwordData.newPassword" name="newPassword" type="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none transition" required />
+        </div>
+
+        <!-- Confirm Password -->
+        <div>
+          <label class="block text-sm font-medium text-gray-900 mb-2">تأكيد كلمة المرور</label>
+          <input [(ngModel)]="passwordData.confirmPassword" name="confirmPassword" type="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none transition" required />
+        </div>
+
+        <!-- Submit -->
+        <div class="flex gap-4">
+          <button type="submit" class="px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition font-bold">
+            تحديث كلمة المرور
+          </button>
+          <button type="reset" class="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition font-medium">
+            إلغاء
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

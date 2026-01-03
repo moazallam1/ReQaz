@@ -1,55 +1,106 @@
-<footer class="bg-gray-900 text-white py-12">
+<footer class="bg-gray-900 text-gray-300 py-16" dir="rtl">
   <div class="max-w-7xl mx-auto px-6">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-      <!-- Brand -->
-      <div>
-        <h3 class="text-2xl font-bold text-teal-400 mb-4">ركاز</h3>
-        <p class="text-gray-400 text-sm">
-          منصة تواصل حديثة وآمنة للفرق والشركات.
+    <!-- Main Footer Content -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+      <!-- Company Info -->
+      <div class="lg:col-span-1">
+        <h3 class="text-white font-bold text-lg mb-4">{{ companyInfo.name }}</h3>
+        <p class="text-sm text-gray-400 mb-6">
+          {{ companyInfo.tagline }}
         </p>
+        <!-- Social Links -->
+        <div class="flex gap-4">
+          @for (social of socialLinks; track social.url) {
+            <a [href]="social.url" target="_blank" rel="noopener noreferrer" [title]="social.label" class="w-10 h-10 bg-gray-800 hover:bg-teal-600 rounded-full flex items-center justify-center transition text-white">
+              <i [ngClass]="social.icon" class="text-lg"></i>
+            </a>
+          }
+        </div>
       </div>
 
-      <!-- Product -->
-      <div>
-        <h4 class="font-bold text-white mb-4">المنتج</h4>
-        <ul class="space-y-2 text-sm text-gray-400">
-          <li><a href="#" class="hover:text-teal-400 transition">المميزات</a></li>
-          <li><a href="#" class="hover:text-teal-400 transition">الأسعار</a></li>
-          <li><a href="#" class="hover:text-teal-400 transition">الأمان</a></li>
-          <li><a href="#" class="hover:text-teal-400 transition">الخارطة</a></li>
-        </ul>
-      </div>
+      <!-- Footer Sections -->
+      @for (section of footerSections; track section.title) {
+        <div>
+          <h4 class="text-white font-bold text-sm mb-4">{{ section.title }}</h4>
+          <ul class="space-y-2">
+            @for (link of section.links; track link.label) {
+              <li>
+                @if (link.routerLink) {
+                  <a [routerLink]="link.routerLink" class="text-gray-400 hover:text-teal-400 transition text-sm">
+                    {{ link.label }}
+                  </a>
+                } @else {
+                  <a [href]="link.href" class="text-gray-400 hover:text-teal-400 transition text-sm">
+                    {{ link.label }}
+                  </a>
+                }
+              </li>
+            }
+          </ul>
+        </div>
+      }
 
-      <!-- Company -->
+      <!-- Contact Info -->
       <div>
-        <h4 class="font-bold text-white mb-4">الشركة</h4>
-        <ul class="space-y-2 text-sm text-gray-400">
-          <li><a href="#" class="hover:text-teal-400 transition">من نحن</a></li>
-          <li><a href="#" class="hover:text-teal-400 transition">المدونة</a></li>
-          <li><a href="#" class="hover:text-teal-400 transition">الوظائف</a></li>
-          <li><a href="#" class="hover:text-teal-400 transition">التواصل</a></li>
-        </ul>
-      </div>
-
-      <!-- Legal -->
-      <div>
-        <h4 class="font-bold text-white mb-4">قانوني</h4>
-        <ul class="space-y-2 text-sm text-gray-400">
-          <li><a href="#" class="hover:text-teal-400 transition">الخصوصية</a></li>
-          <li><a href="#" class="hover:text-teal-400 transition">الشروط</a></li>
-          <li><a href="#" class="hover:text-teal-400 transition">الملفات</a></li>
-          <li><a href="#" class="hover:text-teal-400 transition">الأمان</a></li>
+        <h4 class="text-white font-bold text-sm mb-4">التواصل</h4>
+        <ul class="space-y-3 text-sm text-gray-400">
+          <li class="flex items-start gap-3">
+            <i class="fas fa-map-marker-alt text-teal-400 mt-1 flex-shrink-0"></i>
+            <span>{{ companyInfo.address }}</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <i class="fas fa-envelope text-teal-400 flex-shrink-0"></i>
+            <a href="mailto:info@reqaz.com" class="hover:text-teal-400 transition">
+              {{ companyInfo.email }}
+            </a>
+          </li>
+          <li class="flex items-center gap-3">
+            <i class="fas fa-phone text-teal-400 flex-shrink-0"></i>
+            <a href="tel:+966501234567" class="hover:text-teal-400 transition">
+              {{ companyInfo.phone }}
+            </a>
+          </li>
         </ul>
       </div>
     </div>
 
-    <!-- Bottom -->
-    <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p class="text-gray-400 text-sm">© 2024 ركاز. جميع الحقوق محفوظة.</p>
-      <div class="flex gap-4">
-        <a href="#" class="text-gray-400 hover:text-teal-400 transition">تويتر</a>
-        <a href="#" class="text-gray-400 hover:text-teal-400 transition">فيسبوك</a>
-        <a href="#" class="text-gray-400 hover:text-teal-400 transition">لينكد إن</a>
+    <!-- Divider -->
+    <div class="border-t border-gray-800 pt-8 mb-8"></div>
+
+    <!-- Bottom Footer -->
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <!-- Copyright -->
+      <p class="text-sm text-gray-400">
+        © {{ currentYear }} ركاز. جميع الحقوق محفوظة.
+      </p>
+
+      <!-- Legal Links -->
+      <div class="flex gap-6 text-sm">
+        <a href="#privacy" class="text-gray-400 hover:text-teal-400 transition">
+          سياسة الخصوصية
+        </a>
+        <a href="#terms" class="text-gray-400 hover:text-teal-400 transition">
+          شروط الاستخدام
+        </a>
+        <a href="#cookies" class="text-gray-400 hover:text-teal-400 transition">
+          سياسة الكوكيز
+        </a>
+      </div>
+    </div>
+
+    <!-- Certifications / Trust Badges -->
+    <div class="flex flex-wrap items-center justify-center gap-6 mt-8 pt-8 border-t border-gray-800">
+      <div class="flex items-center gap-2 text-xs text-gray-400">
+        <i class="fas fa-lock text-teal-400"></i>
+        <span>تشفير SSL 256-bit</span>
+      </div>
+      <div class="flex items-center gap-2 text-xs text-gray-400">
+        <i class="fas fa-shield-alt text-teal-400"></i>
+        <span>معايير ISO 27001</span>
+      </div>
+      <div class="flex items-center gap-2 text-xs text-gray-400">
+        <i class="fas fa-check-circle text-teal-400"></i>
+        <span>ضمان استرجاع الأموال 30 يوم</span>
       </div>
     </div>
   </div>
